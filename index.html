@@ -1,0 +1,86 @@
+<html>
+<head>
+	<title></title>
+		<meta http-equiv ="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv ="X-UA-Compatible" content="IE-8" />
+	<script src="js.js"></script>
+	<script src="TweenMax.js"></script>
+<style type="text/css">
+body{
+	background-color: #2CE7B1;
+}
+.circle{
+	width: 50px;
+	height: 50px;
+	background-color: #333;
+	position: absolute;
+}
+#main{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	/*border: solid 1px #333;*/
+}
+</style>
+<script type="text/javascript">
+
+$(window).load(function(){
+	salida();
+	centrar();
+});
+$(window).resize(function () {
+	centrar();
+});
+$(document).ready(function() {
+
+
+var total = 350;
+for(var i = 0; i < total; i++) {
+
+	$("#main").append('<div class="circle cell'+i+'"></div>');
+};
+// Stuff to do as soon as the DOM is ready;
+window.setInterval(salida, 20000);
+
+});
+function salida(){
+	var colores =["#2CE7B1","#00B5AD","#005C64","#00D9C4","#00A5A0","#00C3F6","#000630","#2D4F70","#2D1E43","#00F1FF","#79475E","#53FDBA","#AC536F","#4B2254","#77787A"];
+	//alert('hola');
+	var total = 350;
+	
+	var rota =aleatorio(0,1260);
+	var tween64 = TweenLite.to("#main",.8,{rotation:rota});
+	for (var a = 0; a < total; a++) {
+		var figura = aleatorio(1,14);
+		var d1= aleatorio(2,20);
+		var d2= aleatorio(7,80);
+		var alto= aleatorio(50,300);
+		var ancho= aleatorio(50,300);
+		var alpha=aleatorio(1,10)/10;
+		var retro = a/6;
+		var namex=".cell"+a;
+		var dato1=aleatorio(0,$("#main").innerHeight());
+		var dato2=aleatorio(0,$("#main").innerWidth());
+
+		TweenLite.to(namex, .3,{delay:retro, backgroundColor: colores[figura],top:dato1,left:dato2, width:ancho, height:alto,autoAlpha:alpha});
+	};
+	TweenLite.to('body',1,{backgroundColor:colores[figura]});
+
+}
+function aleatorio(a,b) {
+         return Math.round(Math.random()*(b-a)+parseInt(a));
+}
+function centrar(){
+	var uno=($(window).innerHeight()-$('#main').height())/2;
+	var dos=($(window).innerWidth()-$('#main').width())/2;
+	var tween71 = TweenLite.to("#main", .7,{top:uno,left:dos,ease:Back.easeInOut});
+
+}
+
+</script>
+</head>
+<body>
+	<div id="main">
+	</div>
+</body>
+</html>
